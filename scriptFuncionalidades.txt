@@ -1,0 +1,53 @@
+#para contar el numero de coincidencias que hay en la base de datos cuando se introduce usuario y contraseña y así comprobar si existe
+SELECT COUNT(*) FROM usuario WHERE username='$username' AND contrasenya='$contrasenya';
+
+#para comprabar si al registrarse ya existen usuarios con el mismo usuario o email, el resto de datos pueden coincidir
+SELECT COUNT(*) FROM usuario WHERE username='$username' OR email='$email';
+
+#para insertar un usuario cuando se registra con el formulario de registro
+INSERT INTO usuario (username,contrasenya,nombre,apellido,email) VALUES ('$username','$contrasenya','$nombre','$apellido','$email');
+
+#para insertar al carrito
+INSERT INTO carrito (id_animal, username_usuario) VALUES ($id, '{$_COOKIE['usuario']}');
+
+#para contar el número de items que hay en carrito
+SELECT COUNT(*) FROM carrito WHERE username_usuario = '{$_COOKIE['usuario']}';
+
+
+#para sumar el precio de todos los elementos del carrito
+SELECT SUM(animal.precio) AS 'preciocarrito' FROM animal INNER JOIN carrito ON animal.id = carrito.id_animal AND username_usuario = '{$_COOKIE['usuario']}';
+
+#para ordenar por fecha descendente
+SELECT * FROM animal ORDER BY fecha_anyadido DESC;
+
+#ordenar fecha ascendente
+SELECT * FROM animal ORDER BY fecha_anyadido ASC;
+
+#ordenar precio mayor a menor
+SELECT * FROM animal ORDER BY precio DESC;
+
+#ordenar precio menor a mayor
+SELECT * FROM animal ORDER BY precio ASC
+
+#ordenar orden alfabetico descendente
+SELECT * FROM animal ORDER BY nombre DESC
+
+#ordenar orden alfabetico ascendente
+SELECT * FROM animal ORDER BY nombre ASC
+
+#para seleccionar los datos del usuario
+SELECT username, nombre, apellido, email, contrasenya FROM usuario WHERE username = '{$_COOKIE['usuario']}';
+
+#para seleccionar los datos de los animales que el usuario ha comprado creando una columna que suma las veces que se repiten los items y los agrupa en una sola linea las repeticiones
+SELECT compra.fecha, animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.precio, COUNT(*) AS repetitions FROM animal INNER JOIN compra ON compra.id_animal = animal.id AND compra.username_usuario = '{$_COOKIE['usuario']}' GROUP BY compra.fecha, animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.precio;
+
+#lo mismo que arriba pero con el carrito de la compra
+SELECT animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.precio, COUNT(*) AS repetitions FROM animal INNER JOIN carrito ON carrito.id_animal = animal.id AND carrito.username_usuario = '{$_COOKIE['usuario']}' GROUP BY animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.precio;
+
+#para agregar al historial de compra los elementos pre-seleccionados en el carrito al pulsar 'realizar compra'
+INSERT INTO compra (fecha, id_animal, username_usuario) SELECT CURRENT_DATE, id_animal, username_usuario FROM carrito WHERE username_usuario = '{$_COOKIE['usuario']}';
+
+
+#para eliminar del carrito los elementos al pulsar 'restablecer' o al efectuar la compra de estos
+DELETE FROM carrito WHERE username_usuario = '{$_COOKIE['usuario']}';
+

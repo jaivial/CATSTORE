@@ -1,0 +1,174 @@
+/**
+ * Estilos para autenticación
+ * Cat Store - Tienda de Gatos
+ */
+
+/* Contenedor principal */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%), url('/assets/img/cats-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Tarjeta de autenticación */
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 2rem;
+}
+
+/* Encabezado */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header h2 {
+    font-size: 1.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Pestañas */
+.auth-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.auth-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    color: #777;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-tabs .tab.active {
+    color: #ff6b6b;
+    border-bottom: 2px solid #ff6b6b;
+}
+
+.auth-tabs .tab:hover {
+    color: #ff6b6b;
+}
+
+/* Contenido de autenticación */
+.auth-content {
+    display: block;
+}
+
+.auth-content.hidden {
+    display: none;
+}
+
+/* Formularios */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #ff6b6b;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+/* Botones */
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ff5252;
+}
+
+/* Mensajes de formulario */
+.form-message {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.form-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.form-message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.form-message.info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-card {
+        max-width: 90%;
+        margin: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-header h1 {
+        font-size: 2rem;
+    }
+    
+    .auth-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem;
+    }
+} 

@@ -1127,6 +1127,7 @@ include_once __DIR__ . '/../../includes/header.php';
     .products-header-actions {
         display: flex;
         align-items: center;
+        gap: 0.5rem;
     }
 
     .products-dropdown {
@@ -1536,6 +1537,62 @@ include_once __DIR__ . '/../../includes/header.php';
         margin-right: 0;
         font-size: 0.7rem;
     }
+
+    /* Estilos para el selector de ordenación */
+    .products-sort {
+        position: relative;
+        margin-right: 0.75rem;
+    }
+
+    .products-sort-select {
+        padding: 0.5rem 2rem 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%236c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+        background-repeat: no-repeat;
+        background-position: right 0.5rem center;
+        background-size: 0.85rem;
+        cursor: pointer;
+        min-width: 160px;
+        transition: all 0.2s ease;
+        color: #495057;
+    }
+
+    .products-sort-select:hover {
+        border-color: #cbd3da;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .products-sort-select:focus {
+        outline: none;
+        border-color: rgba(74, 108, 247, 0.5);
+        box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.25);
+    }
+
+    .products-sort-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #4a6cf7;
+        font-size: 0.85rem;
+        pointer-events: none;
+    }
+
+    .products-sort-select-wrapper {
+        position: relative;
+    }
+
+    /* Actualización de los estilos header actions */
+    .products-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 </style>
 
 <div class="admin-container">
@@ -1788,47 +1845,19 @@ include_once __DIR__ . '/../../includes/header.php';
                 <span class="badge"><?php echo $result['count']; ?></span>
             </h5>
             <div class="products-header-actions">
-                <div class="products-dropdown">
-                    <button class="products-dropdown-btn" type="button" id="orderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-sort"></i> Ordenar
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right shadow-sm" aria-labelledby="orderDropdown">
-                        <h6 class="dropdown-header">Ordenar por</h6>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'id' && $orderDir === 'ASC' ? 'active' : ''; ?>" href="?orderBy=id&orderDir=ASC">
-                            <span>ID (ascendente)</span>
-                            <?php if ($orderBy === 'id' && $orderDir === 'ASC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'id' && $orderDir === 'DESC' ? 'active' : ''; ?>" href="?orderBy=id&orderDir=DESC">
-                            <span>ID (descendente)</span>
-                            <?php if ($orderBy === 'id' && $orderDir === 'DESC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'nombre' && $orderDir === 'ASC' ? 'active' : ''; ?>" href="?orderBy=nombre&orderDir=ASC">
-                            <span>Nombre (A-Z)</span>
-                            <?php if ($orderBy === 'nombre' && $orderDir === 'ASC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'nombre' && $orderDir === 'DESC' ? 'active' : ''; ?>" href="?orderBy=nombre&orderDir=DESC">
-                            <span>Nombre (Z-A)</span>
-                            <?php if ($orderBy === 'nombre' && $orderDir === 'DESC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'precio' && $orderDir === 'ASC' ? 'active' : ''; ?>" href="?orderBy=precio&orderDir=ASC">
-                            <span>Precio (menor a mayor)</span>
-                            <?php if ($orderBy === 'precio' && $orderDir === 'ASC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center <?php echo $orderBy === 'precio' && $orderDir === 'DESC' ? 'active' : ''; ?>" href="?orderBy=precio&orderDir=DESC">
-                            <span>Precio (mayor a menor)</span>
-                            <?php if ($orderBy === 'precio' && $orderDir === 'DESC'): ?><i class="fas fa-check text-primary ml-2"></i><?php endif; ?>
-                        </a>
+                <div class="products-sort">
+                    <div class="products-sort-select-wrapper">
+                        <select class="products-sort-select" id="orderBySelect">
+                            <option value="id-ASC" <?php echo $orderBy === 'id' && $orderDir === 'ASC' ? 'selected' : ''; ?>>ID (ascendente)</option>
+                            <option value="id-DESC" <?php echo $orderBy === 'id' && $orderDir === 'DESC' ? 'selected' : ''; ?>>ID (descendente)</option>
+                            <option value="nombre-ASC" <?php echo $orderBy === 'nombre' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Nombre (A-Z)</option>
+                            <option value="nombre-DESC" <?php echo $orderBy === 'nombre' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Nombre (Z-A)</option>
+                            <option value="precio-ASC" <?php echo $orderBy === 'precio' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Precio (menor a mayor)</option>
+                            <option value="precio-DESC" <?php echo $orderBy === 'precio' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Precio (mayor a menor)</option>
+                            <option value="fecha_anyadido-DESC" <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Fecha (más recientes)</option>
+                            <option value="fecha_anyadido-ASC" <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Fecha (más antiguos)</option>
+                        </select>
                     </div>
-                </div>
-                <div class="products-buttons">
-                    <button type="button" class="products-button" data-toggle="tooltip" title="Exportar listado">
-                        <i class="fas fa-download"></i>
-                    </button>
-                    <button type="button" class="products-button" data-toggle="tooltip" title="Imprimir listado">
-                        <i class="fas fa-print"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -2118,6 +2147,25 @@ include_once __DIR__ . '/../../includes/header.php';
             perPageSelect.addEventListener('change', function() {
                 console.log(`Cambiar a ${this.value} resultados por página`);
                 // En una implementación real, aquí redirigiríamos o haríamos una petición AJAX
+            });
+        }
+
+        // Manejo del selector de ordenación
+        const orderBySelect = document.getElementById('orderBySelect');
+        if (orderBySelect) {
+            orderBySelect.addEventListener('change', function() {
+                const [orderBy, orderDir] = this.value.split('-');
+
+                // Construir la URL con parámetros existentes y nuevos valores de ordenación
+                let url = new URL(window.location.href);
+                let params = new URLSearchParams(url.search);
+
+                // Actualizar parámetros de ordenación
+                params.set('orderBy', orderBy);
+                params.set('orderDir', orderDir);
+
+                // Redirigir a la nueva URL
+                window.location.href = `${url.pathname}?${params.toString()}`;
             });
         }
     });

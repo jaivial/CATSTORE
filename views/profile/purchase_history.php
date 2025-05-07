@@ -34,7 +34,8 @@ include_once __DIR__ . '/../../includes/header.php';
     </div>
 
     <?php if (empty($purchaseData['purchases'])): ?>
-        <div class="alert alert-info alert-dismissible fade show shadow-sm border-left-info animate__animated animate__fadeIn">
+        <div
+            class="alert alert-info alert-dismissible fade show shadow-sm border-left-info animate__animated animate__fadeIn">
             <div class="d-flex align-items-center">
                 <i class="bi bi-info-circle-fill text-info me-3 fs-4"></i>
                 <div>
@@ -74,7 +75,7 @@ include_once __DIR__ . '/../../includes/header.php';
                                                 alt="<?php echo htmlspecialchars($purchase['nombre']); ?>" class="img-thumbnail"
                                                 style="width: 50px; height: 50px; object-fit: cover;">
                                         <?php else: ?>
-                                            <img src="/assets/img/cat-placeholder.jpg" alt="Sin imagen" class="img-thumbnail"
+                                            <img src="/assets/img/cat-placeholder.png" alt="Sin imagen" class="img-thumbnail"
                                                 style="width: 50px; height: 50px; object-fit: cover;">
                                         <?php endif; ?>
                                     </td>

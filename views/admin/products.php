@@ -1958,7 +1958,7 @@ include_once __DIR__ . '/../../includes/header.php';
                                         <img src="data:image/jpeg;base64,<?php echo base64_encode($product['foto']); ?>"
                                             alt="<?php echo htmlspecialchars($product['nombre']); ?>" class="product-image">
                                     <?php else: ?>
-                                        <img src="/assets/img/cat-placeholder.jpg" alt="Sin imagen" class="product-image">
+                                        <img src="/assets/img/cat-placeholder.png" alt="Sin imagen" class="product-image">
                                     <?php endif; ?>
                                 </td>
                                 <td><span class="product-name"><?php echo htmlspecialchars($product['nombre']); ?></span></td>

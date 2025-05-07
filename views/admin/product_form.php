@@ -54,28 +54,33 @@ include_once __DIR__ . '/../../includes/header.php';
             <h5 class="product-form-card-title"><?php echo $isEditing ? 'Editar Producto' : 'Nuevo Producto'; ?></h5>
         </div>
         <div class="product-form-card-body">
-            <form id="product-form" method="post" action="/api/admin.php?action=<?php echo $isEditing ? 'update_product' : 'create_product'; ?>" enctype="multipart/form-data">
+            <form id="product-form" method="post"
+                action="/api/admin.php?action=<?php echo $isEditing ? 'update_product' : 'create_product'; ?>"
+                enctype="multipart/form-data">
                 <?php if ($isEditing): ?>
-                    <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                 <?php endif; ?>
 
                 <div class="product-form-grid">
                     <div>
                         <div class="product-form-group">
                             <label for="nombre" class="product-form-label product-form-label-required">Nombre</label>
-                            <input type="text" class="product-form-input" id="nombre" name="nombre" value="<?php echo $isEditing ? htmlspecialchars($product['nombre']) : ''; ?>" required>
+                            <input type="text" class="product-form-input" id="nombre" name="nombre"
+                                value="<?php echo $isEditing ? htmlspecialchars($product['nombre']) : ''; ?>" required>
                             <div class="product-form-invalid-feedback" id="nombre-error"></div>
                         </div>
 
                         <div class="product-form-group">
                             <label for="tipo" class="product-form-label product-form-label-required">Tipo</label>
-                            <input type="text" class="product-form-input" id="tipo" name="tipo" value="<?php echo $isEditing ? htmlspecialchars($product['tipo']) : ''; ?>" required>
+                            <input type="text" class="product-form-input" id="tipo" name="tipo"
+                                value="<?php echo $isEditing ? htmlspecialchars($product['tipo']) : ''; ?>" required>
                             <div class="product-form-invalid-feedback" id="tipo-error"></div>
                         </div>
 
                         <div class="product-form-group">
                             <label for="color" class="product-form-label product-form-label-required">Color</label>
-                            <input type="text" class="product-form-input" id="color" name="color" value="<?php echo $isEditing ? htmlspecialchars($product['color']) : ''; ?>" required>
+                            <input type="text" class="product-form-input" id="color" name="color"
+                                value="<?php echo $isEditing ? htmlspecialchars($product['color']) : ''; ?>" required>
                             <div class="product-form-invalid-feedback" id="color-error"></div>
                         </div>
 
@@ -83,15 +88,21 @@ include_once __DIR__ . '/../../includes/header.php';
                             <label for="sexo" class="product-form-label product-form-label-required">Sexo</label>
                             <select class="product-form-select" id="sexo" name="sexo" required>
                                 <option value="">Seleccionar...</option>
-                                <option value="1" <?php echo $isEditing && $product['sexo'] == 1 ? 'selected' : ''; ?>>Macho</option>
-                                <option value="0" <?php echo $isEditing && $product['sexo'] == 0 ? 'selected' : ''; ?>>Hembra</option>
+                                <option value="1" <?php echo $isEditing && $product['sexo'] == 1 ? 'selected' : ''; ?>>
+                                    Macho</option>
+                                <option value="0" <?php echo $isEditing && $product['sexo'] == 0 ? 'selected' : ''; ?>>
+                                    Hembra</option>
                             </select>
                             <div class="product-form-invalid-feedback" id="sexo-error"></div>
                         </div>
 
                         <div class="product-form-group">
-                            <label for="precio" class="product-form-label product-form-label-required">Precio (€)</label>
-                            <input type="number" class="product-form-input" id="precio" name="precio" step="0.01" min="0" value="<?php echo $isEditing ? number_format($product['precio'], 2, '.', '') : ''; ?>" required>
+                            <label for="precio" class="product-form-label product-form-label-required">Precio
+                                (€)</label>
+                            <input type="number" class="product-form-input" id="precio" name="precio" step="0.01"
+                                min="0"
+                                value="<?php echo $isEditing ? number_format($product['precio'], 2, '.', '') : ''; ?>"
+                                required>
                             <div class="product-form-invalid-feedback" id="precio-error"></div>
                         </div>
                     </div>
@@ -100,7 +111,8 @@ include_once __DIR__ . '/../../includes/header.php';
                         <div class="product-form-group">
                             <label for="foto" class="product-form-label">Foto</label>
                             <div class="product-form-file">
-                                <input type="file" class="product-form-file-input" id="foto" name="foto" accept="image/*">
+                                <input type="file" class="product-form-file-input" id="foto" name="foto"
+                                    accept="image/*">
                                 <label class="product-form-file-label" for="foto">
                                     <span class="product-form-file-text">Seleccionar archivo...</span>
                                     <span class="product-form-file-button">Examinar</span>
@@ -115,13 +127,17 @@ include_once __DIR__ . '/../../includes/header.php';
                             <div class="product-form-image-preview">
                                 <div class="product-form-image-container">
                                     <?php if ($isEditing && !empty($product['foto'])): ?>
-                                        <img id="image-preview" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($product['foto']); ?>" alt="Vista previa" class="product-form-image">
+                                    <img id="image-preview"
+                                        src="<?php echo 'data:image/jpeg;base64,' . base64_encode($product['foto']); ?>"
+                                        alt="Vista previa" class="product-form-image">
                                     <?php else: ?>
-                                        <div class="product-form-image-placeholder">
-                                            <i class="fas fa-cat"></i>
-                                            <span class="product-form-image-placeholder-text">No hay imagen seleccionada</span>
-                                        </div>
-                                        <img id="image-preview" src="/assets/img/cat-placeholder.jpg" alt="Vista previa" class="product-form-image">
+                                    <div class="product-form-image-placeholder">
+                                        <i class="fas fa-cat"></i>
+                                        <span class="product-form-image-placeholder-text">No hay imagen
+                                            seleccionada</span>
+                                    </div>
+                                    <img id="image-preview" src="/assets/img/cat-placeholder.png" alt="Vista previa"
+                                        class="product-form-image">
                                     <?php endif; ?>
                                     <div class="product-form-image-overlay">
                                         <button type="button" class="product-form-image-action" id="change-image">
@@ -133,10 +149,12 @@ include_once __DIR__ . '/../../includes/header.php';
                         </div>
 
                         <?php if ($isEditing): ?>
-                            <div class="product-form-group">
-                                <label class="product-form-label">Fecha de creación</label>
-                                <input type="text" class="product-form-input" value="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>" readonly>
-                            </div>
+                        <div class="product-form-group">
+                            <label class="product-form-label">Fecha de creación</label>
+                            <input type="text" class="product-form-input"
+                                value="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>"
+                                readonly>
+                        </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -153,69 +171,69 @@ include_once __DIR__ . '/../../includes/header.php';
 </div>
 
 <style>
-    /* Estilos adicionales en línea */
-    #change-image {
-        background-color: var(--form-primary);
-        color: var(--form-white);
-    }
+/* Estilos adicionales en línea */
+#change-image {
+    background-color: var(--form-primary);
+    color: var(--form-white);
+}
 
-    #change-image:hover {
-        background-color: var(--form-primary-hover);
-    }
+#change-image:hover {
+    background-color: var(--form-primary-hover);
+}
 
-    .product-form-file-input:focus~.product-form-file-label {
-        border-color: var(--form-primary);
-        box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
-    }
+.product-form-file-input:focus~.product-form-file-label {
+    border-color: var(--form-primary);
+    box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
+}
 
-    /* Animación para el botón de guardar */
-    .product-form-btn-primary:active {
-        transform: scale(0.98);
-    }
+/* Animación para el botón de guardar */
+.product-form-btn-primary:active {
+    transform: scale(0.98);
+}
 </style>
 
 <script>
-    // Script para manejar la vista previa de la imagen
-    document.addEventListener('DOMContentLoaded', function() {
-        const fileInput = document.getElementById('foto');
-        const imagePreview = document.getElementById('image-preview');
-        const changeImageBtn = document.getElementById('change-image');
-        const placeholder = document.querySelector('.product-form-image-placeholder');
+// Script para manejar la vista previa de la imagen
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('foto');
+    const imagePreview = document.getElementById('image-preview');
+    const changeImageBtn = document.getElementById('change-image');
+    const placeholder = document.querySelector('.product-form-image-placeholder');
 
-        // Actualizar la vista previa cuando se selecciona un archivo
-        fileInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
+    // Actualizar la vista previa cuando se selecciona un archivo
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    if (placeholder) {
-                        placeholder.style.display = 'none';
-                    }
-                    imagePreview.style.display = 'block';
-                };
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+                imagePreview.style.display = 'block';
+            };
 
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-
-        // Botón para cambiar la imagen
-        if (changeImageBtn) {
-            changeImageBtn.addEventListener('click', function() {
-                fileInput.click();
-            });
+            reader.readAsDataURL(this.files[0]);
         }
-
-        // Actualizar el texto del input file cuando se selecciona un archivo
-        fileInput.addEventListener('change', function() {
-            const fileText = document.querySelector('.product-form-file-text');
-            if (fileText) {
-                fileText.textContent = this.files.length > 0 ?
-                    this.files[0].name :
-                    'Seleccionar archivo...';
-            }
-        });
     });
+
+    // Botón para cambiar la imagen
+    if (changeImageBtn) {
+        changeImageBtn.addEventListener('click', function() {
+            fileInput.click();
+        });
+    }
+
+    // Actualizar el texto del input file cuando se selecciona un archivo
+    fileInput.addEventListener('change', function() {
+        const fileText = document.querySelector('.product-form-file-text');
+        if (fileText) {
+            fileText.textContent = this.files.length > 0 ?
+                this.files[0].name :
+                'Seleccionar archivo...';
+        }
+    });
+});
 </script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

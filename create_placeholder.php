@@ -40,7 +40,7 @@ if (!file_exists('assets/img')) {
 }
 
 // Guardar imagen
-imagejpeg($im, 'assets/img/cat-placeholder.jpg', 90);
+imagejpeg($im, 'assets/img/cat-placeholder.png', 90);
 imagedestroy($im);
 
-echo "Imagen de placeholder creada en assets/img/cat-placeholder.jpg";
+echo "Imagen de placeholder creada en assets/img/cat-placeholder.png";

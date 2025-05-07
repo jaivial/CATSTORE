@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="cart-item-image">
                                     ${item.foto
                                 ? `<img src="data:image/jpeg;base64,${item.foto}" alt="${item.nombre}">`
-                                : `<img src="/assets/img/cat-placeholder.jpg" alt="Imagen no disponible">`
+                                : `<img src="/assets/img/cat-placeholder.png" alt="Imagen no disponible">`
                             }
                                 </div>
                                 <div class="cart-item-info">

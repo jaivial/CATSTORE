@@ -60,7 +60,7 @@ include_once __DIR__ . '/../../includes/header.php';
                                             <?php if (!empty($item['foto'])): ?>
                                                 <img src="data:image/jpeg;base64,<?php echo $item['foto']; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
                                             <?php else: ?>
-                                                <img src="/assets/img/cat-placeholder.jpg" alt="Imagen no disponible">
+                                                <img src="/assets/img/cat-placeholder.png" alt="Imagen no disponible">
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($item['nombre']); ?></td>

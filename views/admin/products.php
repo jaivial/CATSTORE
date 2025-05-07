@@ -9,10 +9,45 @@ if (!$adminController->isAdmin()) {
     exit;
 }
 
-// Get products
+// Process search and filter parameters
 $orderBy = isset($_GET['orderBy']) ? $_GET['orderBy'] : 'id';
 $orderDir = isset($_GET['orderDir']) ? $_GET['orderDir'] : 'ASC';
-$result = $adminController->getAllProducts($orderBy, $orderDir);
+
+// Build filters array
+$filters = [];
+
+// Add search filter if provided
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $filters['nombre'] = $_GET['search'];
+}
+
+// Add type filter if provided
+if (isset($_GET['filter_type']) && !empty($_GET['filter_type'])) {
+    $filters['tipo'] = $_GET['filter_type'];
+}
+
+// Add sex filter if provided (needs to be '0' or '1')
+if (isset($_GET['filter_sex']) && ($_GET['filter_sex'] === '0' || $_GET['filter_sex'] === '1')) {
+    $filters['sexo'] = $_GET['filter_sex'];
+}
+
+// Get products with filters
+if (!empty($filters)) {
+    $result = $adminController->getFilteredProducts($filters, $orderBy, $orderDir);
+} else {
+    $result = $adminController->getAllProducts($orderBy, $orderDir);
+}
+
+// Get unique types for the filter dropdown
+$allProducts = $adminController->getAllProducts('tipo', 'ASC');
+$uniqueTypes = [];
+if ($allProducts['success'] && !empty($allProducts['data'])) {
+    foreach ($allProducts['data'] as $product) {
+        if (!in_array($product['tipo'], $uniqueTypes)) {
+            $uniqueTypes[] = $product['tipo'];
+        }
+    }
+}
 
 // Title of the page
 $pageTitle = "Administración de Productos - Cat Store";
@@ -1730,6 +1765,14 @@ include_once __DIR__ . '/../../includes/header.php';
 
         <div class="collapse show" id="filterOptions">
             <form action="" method="GET" class="search-form">
+                <!-- Preserve existing order parameters if present -->
+                <?php if (isset($_GET['orderBy'])): ?>
+                    <input type="hidden" name="orderBy" value="<?php echo htmlspecialchars($_GET['orderBy']); ?>">
+                <?php endif; ?>
+                <?php if (isset($_GET['orderDir'])): ?>
+                    <input type="hidden" name="orderDir" value="<?php echo htmlspecialchars($_GET['orderDir']); ?>">
+                <?php endif; ?>
+
                 <div class="search-form-row">
                     <div class="search-form-col search-form-col-md-6 search-form-col-lg-4">
                         <label for="searchInput" class="form-label">Buscar por nombre:</label>
@@ -1738,9 +1781,6 @@ include_once __DIR__ . '/../../includes/header.php';
                                 <i class="fas fa-search"></i>
                             </div>
                             <input type="text" id="searchInput" name="search" class="search-input" placeholder="Buscar productos..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                            <button class="search-input-btn" type="submit">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
                         </div>
                     </div>
 
@@ -1748,10 +1788,9 @@ include_once __DIR__ . '/../../includes/header.php';
                         <label for="typeFilter" class="form-label">Tipo de gato:</label>
                         <select id="typeFilter" name="filter_type" class="search-select">
                             <option value="">Todos los tipos</option>
-                            <option value="siamés" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == 'siamés') ? 'selected' : ''; ?>>Siamés</option>
-                            <option value="persa" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == 'persa') ? 'selected' : ''; ?>>Persa</option>
-                            <option value="bengalí" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == 'bengalí') ? 'selected' : ''; ?>>Bengalí</option>
-                            <option value="ragdoll" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == 'ragdoll') ? 'selected' : ''; ?>>Ragdoll</option>
+                            <?php foreach ($uniqueTypes as $type): ?>
+                                <option value="<?php echo htmlspecialchars($type); ?>" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == $type) ? 'selected' : ''; ?>><?php echo htmlspecialchars($type); ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -2079,6 +2118,22 @@ include_once __DIR__ . '/../../includes/header.php';
         if (typeof $ !== 'undefined') {
             $('[data-toggle="tooltip"]').tooltip();
         }
+
+        // Gender filter buttons functionality
+        const genderButtons = document.querySelectorAll('.gender-btn');
+        const genderRadios = document.querySelectorAll('input[name="filter_sex"]');
+
+        genderButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                genderButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // This will trigger the radio button change
+                // The actual form submission happens with the "Aplicar" button
+            });
+        });
 
         // Delete product functionality
         const deleteButtons = document.querySelectorAll('.delete-product');

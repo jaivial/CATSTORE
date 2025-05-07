@@ -63,6 +63,37 @@ class AdminController
     }
 
     /**
+     * Obtiene productos filtrados
+     * @param array $filters Filtros a aplicar (nombre, tipo, sexo, etc.)
+     * @param string $orderBy Campo por el que ordenar
+     * @param string $orderDir Dirección de ordenación (ASC o DESC)
+     * @return array Resultado con los productos filtrados y metadatos
+     */
+    public function getFilteredProducts($filters = [], $orderBy = 'id', $orderDir = 'ASC')
+    {
+        // Verificar permisos de administrador
+        if (!$this->isAdmin()) {
+            return [
+                'success' => false,
+                'message' => 'No tienes permisos de administrador',
+                'data' => [],
+                'count' => 0
+            ];
+        }
+
+        $products = $this->animalModel->getWithFilters($filters, $orderBy, $orderDir);
+
+        return [
+            'success' => ($products !== false),
+            'data' => $products ?: [],
+            'count' => is_array($products) ? count($products) : 0,
+            'filters' => $filters,
+            'orderBy' => $orderBy,
+            'orderDir' => $orderDir
+        ];
+    }
+
+    /**
      * Obtiene un producto por su ID
      * @param int $id ID del producto
      * @return array Resultado con los datos del producto

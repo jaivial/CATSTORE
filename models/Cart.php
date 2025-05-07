@@ -77,9 +77,10 @@ class Cart
     /**
      * Elimina un producto del carrito
      * @param int $productId ID del producto
+     * @param string|null $username Nombre de usuario opcional 
      * @return bool|array True si se eliminó correctamente, array con error si no
      */
-    public function removeFromCart($productId)
+    public function removeFromCart($productId, $username = null)
     {
         // Verificar autenticación
         if (!isAuthenticated()) {
@@ -90,13 +91,16 @@ class Cart
         }
 
         try {
+            // Usar el username proporcionado si está disponible, sino usar el de la sesión
+            $userIdentifier = $username ?: $_SESSION['user_id'];
+
             // Eliminar del carrito (solo una unidad)
             $stmt = $this->db->prepare(
                 "DELETE FROM carrito 
                 WHERE id_animal = ? AND username_usuario = ? 
                 LIMIT 1"
             );
-            $result = $stmt->execute([$productId, $_SESSION['user_id']]);
+            $result = $stmt->execute([$productId, $userIdentifier]);
 
             if ($result) {
                 // Obtener número de elementos en el carrito
@@ -166,6 +170,11 @@ class Cart
      */
     public function getCartContent()
     {
+        // Asegurar que la sesión está iniciada
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         // Verificar autenticación
         if (!isAuthenticated()) {
             return [
@@ -177,21 +186,76 @@ class Cart
         }
 
         try {
-            // Obtener elementos del carrito agrupados
+            // Verificar conexión a la base de datos
+            if (!$this->db) {
+                return [
+                    'success' => false,
+                    'message' => 'Error de conexión a la base de datos',
+                    'items' => [],
+                    'total' => 0
+                ];
+            }
+
+            // Obtener conteo de elementos del carrito primero
             $stmt = $this->db->prepare(
-                "SELECT animal.id, animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.color, animal.precio, COUNT(*) AS repetitions 
-                FROM animal 
-                INNER JOIN carrito ON carrito.id_animal = animal.id AND carrito.username_usuario = ? 
-                GROUP BY animal.id, animal.foto, animal.nombre, animal.tipo, animal.sexo, animal.color, animal.precio"
+                "SELECT id_animal, COUNT(*) AS repetitions 
+                FROM carrito 
+                WHERE username_usuario = ? 
+                GROUP BY id_animal"
             );
             $stmt->execute([$_SESSION['user_id']]);
-            $items = $stmt->fetchAll();
+            $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Calcular precio total
-            $total = 0;
-            foreach ($items as $item) {
-                $total += $item['precio'] * $item['repetitions'];
+            // Si no hay elementos en el carrito, devolver array vacío
+            if (empty($cartItems)) {
+                return [
+                    'success' => true,
+                    'items' => [],
+                    'total' => 0
+                ];
             }
+
+            // Obtener información de los animales
+            $items = [];
+            $total = 0;
+
+            foreach ($cartItems as $cartItem) {
+                // Obtener datos del animal
+                $stmt = $this->db->prepare(
+                    "SELECT id, foto, nombre, tipo, sexo, color, precio 
+                    FROM animal 
+                    WHERE id = ?"
+                );
+                $stmt->execute([$cartItem['id_animal']]);
+                $animal = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($animal) {
+                    // Añadir username_usuario y repetitions
+                    $animal['username_usuario'] = $_SESSION['user_id'];
+                    $animal['repetitions'] = $cartItem['repetitions'];
+
+                    // Convertir datos binarios de imagen a base64
+                    if (isset($animal['foto']) && !empty($animal['foto'])) {
+                        $animal['foto'] = base64_encode($animal['foto']);
+                    }
+
+                    // Calcular subtotal
+                    $total += $animal['precio'] * $cartItem['repetitions'];
+
+                    // Añadir a los items
+                    $items[] = $animal;
+                }
+            }
+
+            // Registrar los items encontrados para depuración
+            file_put_contents(
+                __DIR__ . '/../debug_cart.log',
+                date('Y-m-d H:i:s') . " - Cart::getCartContent - " .
+                    "Items encontrados: " . count($items) . " - " .
+                    "Usuario: " . $_SESSION['user_id'] .
+                    "\n",
+                FILE_APPEND
+            );
 
             return [
                 'success' => true,
@@ -199,9 +263,36 @@ class Cart
                 'total' => $total
             ];
         } catch (PDOException $e) {
+            // Registrar el error para depuración
+            file_put_contents(
+                __DIR__ . '/../debug_cart.log',
+                date('Y-m-d H:i:s') . " - Cart::getCartContent - " .
+                    "Error PDO: " . $e->getMessage() . " - " .
+                    "Usuario: " . $_SESSION['user_id'] .
+                    "\n",
+                FILE_APPEND
+            );
+
             return [
                 'success' => false,
-                'message' => 'Error en la base de datos',
+                'message' => 'Error en la base de datos: ' . $e->getMessage(),
+                'items' => [],
+                'total' => 0
+            ];
+        } catch (Exception $e) {
+            // Registrar el error para depuración
+            file_put_contents(
+                __DIR__ . '/../debug_cart.log',
+                date('Y-m-d H:i:s') . " - Cart::getCartContent - " .
+                    "Error general: " . $e->getMessage() . " - " .
+                    "Usuario: " . $_SESSION['user_id'] .
+                    "\n",
+                FILE_APPEND
+            );
+
+            return [
+                'success' => false,
+                'message' => 'Error inesperado: ' . $e->getMessage(),
                 'items' => [],
                 'total' => 0
             ];

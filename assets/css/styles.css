@@ -358,6 +358,18 @@ a:hover {
     text-align: center;
 }
 
+/* Estilos adicionales para el contador en el menú lateral */
+.navbar-collapse .cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    padding: 0.2em;
+    font-size: 0.7rem;
+    border-radius: 50%;
+}
+
 /* Botón de menú hamburguesa */
 .navbar-toggle {
     display: none;
@@ -488,6 +500,14 @@ body.navbar-open {
         display: inline-block;
         font-size: var(--font-size-md);
         margin-left: var(--spacing-sm);
+    }
+    
+    /* Ajustar el contador del carrito en el menú lateral móvil */
+    .navbar-icon .cart-count {
+        top: -0.5em;
+        right: auto;
+        left: 1.2em;
+        z-index: 2;
     }
     
     .navbar-brand h1 {

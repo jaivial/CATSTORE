@@ -32,9 +32,67 @@ function connectDB()
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
-        return new PDO($dsn, DB_USER, DB_PASS, $options);
+        // Registrar intento de conexión
+        file_put_contents(
+            __DIR__ . '/../debug_cart.log',
+            date('Y-m-d H:i:s') . " - connectDB - " .
+                "Intentando conectar a: " . DB_HOST . ":" . DB_PORT . " - " . DB_NAME .
+                "\n",
+            FILE_APPEND
+        );
+
+        // Establecer timeout de conexión para evitar bloqueos prolongados
+        $options[PDO::ATTR_TIMEOUT] = 5; // 5 segundos de timeout
+
+        $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+
+        // Verificar que la conexión funciona con una consulta simple
+        $pdo->query('SELECT 1');
+
+        // Registrar conexión exitosa
+        file_put_contents(
+            __DIR__ . '/../debug_cart.log',
+            date('Y-m-d H:i:s') . " - connectDB - " .
+                "Conexión exitosa a la base de datos" .
+                "\n",
+            FILE_APPEND
+        );
+
+        return $pdo;
     } catch (PDOException $e) {
-        // En un entorno de producción, registrar el error en lugar de mostrarlo
-        die('Error de conexión: ' . $e->getMessage());
+        // Registrar error de conexión
+        file_put_contents(
+            __DIR__ . '/../debug_cart.log',
+            date('Y-m-d H:i:s') . " - connectDB - " .
+                "Error de conexión: " . $e->getMessage() .
+                "\n",
+            FILE_APPEND
+        );
+
+        // Mensajes amigables según el error
+        $errorCode = $e->getCode();
+        $errorMessage = 'Error de conexión a la base de datos';
+
+        if ($errorCode == 2002) {
+            $errorMessage = 'No se pudo conectar al servidor de base de datos. Verifique que MySQL está en ejecución.';
+        } elseif ($errorCode == 1045) {
+            $errorMessage = 'Credenciales incorrectas para la base de datos.';
+        } elseif ($errorCode == 1049) {
+            $errorMessage = 'Base de datos "' . DB_NAME . '" no existe.';
+        } elseif ($errorCode == 2003) {
+            $errorMessage = 'El servidor de base de datos está rechazando la conexión.';
+        }
+
+        // En un entorno de producción, no mostrar detalles técnicos
+        if (
+            strpos($_SERVER['HTTP_HOST'] ?? '', 'localhost') !== false ||
+            in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'])
+        ) {
+            // En entorno local, mostrar detalles del error
+            die($errorMessage . ' (' . $e->getMessage() . ')');
+        } else {
+            // En producción, mostrar mensaje genérico
+            die($errorMessage);
+        }
     }
 }

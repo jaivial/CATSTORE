@@ -116,6 +116,9 @@ include_once __DIR__ . '/../../includes/header.php';
 </main>
 
 <?php
+// Incluir el drawer del carrito
+include_once __DIR__ . '/cart_drawer.php';
+
 // Incluir pie de página
 include_once __DIR__ . '/../../includes/footer.php';
 ?>

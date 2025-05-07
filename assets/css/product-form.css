@@ -1,0 +1,572 @@
+/**
+ * Estilos específicos para el formulario de productos
+ * Cat Store - Tienda de Gatos
+ */
+
+/* Variables CSS */
+:root {
+  --form-primary: #4a6cf7;
+  --form-primary-hover: #3256e7;
+  --form-primary-light: #eaefff;
+  --form-secondary: #6c757d;
+  --form-success: #28a745;
+  --form-danger: #dc3545;
+  --form-warning: #ffc107;
+  --form-info: #17a2b8;
+  --form-light: #f8f9fa;
+  --form-dark: #343a40;
+  --form-white: #ffffff;
+  --form-gray-100: #f8f9fa;
+  --form-gray-200: #e9ecef;
+  --form-gray-300: #dee2e6;
+  --form-gray-400: #ced4da;
+  --form-gray-500: #adb5bd;
+  
+  --form-border-radius: 8px;
+  --form-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --form-transition: all 0.3s ease;
+  --form-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Contenedor principal del formulario */
+.product-form-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Encabezado de página */
+.product-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.product-form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--form-dark);
+  margin: 0;
+}
+
+.product-form-back-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--form-primary);
+  border: 1px solid var(--form-primary);
+  border-radius: var(--form-border-radius);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--form-transition);
+}
+
+.product-form-back-btn:hover {
+  background-color: var(--form-primary-light);
+  color: var(--form-primary-hover);
+}
+
+.product-form-back-btn i {
+  margin-right: 0.5rem;
+}
+
+/* Card del formulario */
+.product-form-card {
+  background-color: var(--form-white);
+  border-radius: var(--form-border-radius);
+  box-shadow: var(--form-box-shadow);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.product-form-card-header {
+  background-color: var(--form-primary);
+  color: var(--form-white);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.product-form-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.product-form-card-body {
+  padding: 1.5rem;
+}
+
+/* Grid del formulario */
+.product-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .product-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.product-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.5rem;
+}
+
+.product-form-col {
+  flex: 1 0 100%;
+  padding: 0.5rem;
+}
+
+@media (min-width: 576px) {
+  .product-form-col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Sección de acciones del formulario */
+.product-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--form-gray-200);
+}
+
+/* Etiquetas de formulario */
+.product-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--form-dark);
+}
+
+.product-form-label-required::after {
+  content: " *";
+  color: var(--form-danger);
+}
+
+/* Campos de entrada */
+.product-form-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--form-dark);
+  background-color: var(--form-white);
+  background-clip: padding-box;
+  border: 1px solid var(--form-gray-300);
+  border-radius: var(--form-border-radius);
+  transition: var(--form-transition);
+}
+
+.product-form-input:focus {
+  border-color: var(--form-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
+}
+
+.product-form-input::placeholder {
+  color: var(--form-gray-500);
+  opacity: 1;
+}
+
+.product-form-input:disabled,
+.product-form-input[readonly] {
+  background-color: var(--form-gray-100);
+  opacity: 1;
+}
+
+/* Select */
+.product-form-select {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--form-dark);
+  background-color: var(--form-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 16px 12px;
+  border: 1px solid var(--form-gray-300);
+  border-radius: var(--form-border-radius);
+  appearance: none;
+  transition: var(--form-transition);
+}
+
+.product-form-select:focus {
+  border-color: var(--form-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
+}
+
+/* File input */
+.product-form-file {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.product-form-file-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(1.5em + 1.5rem + 2px);
+  margin: 0;
+  opacity: 0;
+}
+
+.product-form-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: calc(1.5em + 1.5rem + 2px);
+  padding: 0.75rem 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--form-gray-500);
+  background-color: var(--form-white);
+  border: 1px solid var(--form-gray-300);
+  border-radius: var(--form-border-radius);
+}
+
+.product-form-file-text {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-form-file-button {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  color: var(--form-dark);
+  background-color: var(--form-gray-200);
+  border-radius: var(--form-border-radius);
+  border-left: 1px solid var(--form-gray-300);
+}
+
+/* Texto de ayuda */
+.product-form-text {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--form-gray-500);
+}
+
+/* Feedback de validación */
+.product-form-invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--form-danger);
+}
+
+.product-form-input.is-invalid,
+.product-form-select.is-invalid {
+  border-color: var(--form-danger);
+  padding-right: calc(1.5em + 1.5rem);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23dc3545' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14.5a6.5 6.5 0 1 1 6.5-6.5 6.51 6.51 0 0 1-6.5 6.5zm0-11a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5zm0 8a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.375rem) center;
+  background-size: calc(0.75em + 0.75rem) calc(0.75em + 0.75rem);
+}
+
+.product-form-input.is-invalid:focus,
+.product-form-select.is-invalid:focus {
+  border-color: var(--form-danger);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+}
+
+.product-form-input.is-invalid ~ .product-form-invalid-feedback,
+.product-form-select.is-invalid ~ .product-form-invalid-feedback {
+  display: block;
+}
+
+/* Contenedor de vista previa de imagen */
+.product-form-image-preview {
+  position: relative;
+  margin-top: 1rem;
+  border-radius: var(--form-border-radius);
+  overflow: hidden;
+  background-color: var(--form-gray-100);
+  border: 1px solid var(--form-gray-300);
+  transition: var(--form-transition);
+}
+
+.product-form-image-preview:hover {
+  box-shadow: var(--form-box-shadow);
+}
+
+.product-form-image-preview-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--form-dark);
+}
+
+.product-form-image-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; /* Aspect ratio 4:3 */
+  overflow: hidden;
+}
+
+.product-form-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--form-transition);
+}
+
+.product-form-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: var(--form-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-form-image-preview:hover .product-form-image-overlay {
+  opacity: 1;
+}
+
+.product-form-image-action {
+  background-color: var(--form-white);
+  color: var(--form-dark);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: var(--form-transition);
+}
+
+.product-form-image-action:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product-form-image-action i {
+  font-size: 1rem;
+}
+
+/* Placeholder para la imagen */
+.product-form-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--form-gray-100);
+  color: var(--form-gray-500);
+  padding: 1rem;
+  text-align: center;
+}
+
+.product-form-image-placeholder i {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-form-image-placeholder-text {
+  font-size: 0.875rem;
+}
+
+/* Botones */
+.product-form-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: var(--form-border-radius);
+  transition: var(--form-transition);
+}
+
+.product-form-btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.25);
+}
+
+.product-form-btn:disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.product-form-btn i {
+  margin-right: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Variantes de botones */
+.product-form-btn-primary {
+  color: var(--form-white);
+  background-color: var(--form-primary);
+  border-color: var(--form-primary);
+}
+
+.product-form-btn-primary:hover {
+  color: var(--form-white);
+  background-color: var(--form-primary-hover);
+  border-color: var(--form-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--form-box-shadow);
+}
+
+.product-form-btn-secondary {
+  color: var(--form-dark);
+  background-color: var(--form-gray-200);
+  border-color: var(--form-gray-300);
+}
+
+.product-form-btn-secondary:hover {
+  color: var(--form-dark);
+  background-color: var(--form-gray-300);
+  border-color: var(--form-gray-400);
+  transform: translateY(-2px);
+  box-shadow: var(--form-box-shadow);
+}
+
+.product-form-btn-outline {
+  color: var(--form-primary);
+  background-color: transparent;
+  border-color: var(--form-primary);
+}
+
+.product-form-btn-outline:hover {
+  color: var(--form-white);
+  background-color: var(--form-primary);
+  border-color: var(--form-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--form-box-shadow);
+}
+
+.product-form-btn-danger {
+  color: var(--form-white);
+  background-color: var(--form-danger);
+  border-color: var(--form-danger);
+}
+
+.product-form-btn-danger:hover {
+  color: var(--form-white);
+  background-color: #c82333;
+  border-color: #bd2130;
+  transform: translateY(-2px);
+  box-shadow: var(--form-box-shadow);
+}
+
+/* Tamaños de botones */
+.product-form-btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.product-form-btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Botón de bloque */
+.product-form-btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Grupo de botones */
+.product-form-btn-group {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.product-form-btn-group .product-form-btn {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.product-form-btn-group .product-form-btn:not(:first-child) {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.product-form-btn-group .product-form-btn:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 108, 247, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 108, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 108, 247, 0);
+  }
+}
+
+.product-form-btn-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .product-form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .product-form-actions .product-form-btn {
+    width: 100%;
+  }
+} 

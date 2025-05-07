@@ -15,12 +15,27 @@ require_once __DIR__ . '/../config/db_config.php';
 
 /**
  * Verifica si el usuario está autenticado
- * @return bool True si está autenticado, False si no
+ * @return bool True si está autenticado, false si no
  */
 function isAuthenticated()
 {
+    // Iniciar sesión si no está iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     // Comprobar si hay una sesión activa
     if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+        // Registrar información de depuración
+        file_put_contents(
+            __DIR__ . '/../debug_cart.log',
+            date('Y-m-d H:i:s') . " - isAuthenticated - " .
+                "Resultado: true (sesión) - " .
+                "Session ID: " . session_id() .
+                " - User ID: " . $_SESSION['user_id'] .
+                "\n",
+            FILE_APPEND
+        );
         return true;
     }
 
@@ -34,6 +49,17 @@ function isAuthenticated()
         if ($stmt->fetchColumn() > 0) {
             // Usuario válido, establecer sesión
             $_SESSION['user_id'] = $_COOKIE['usuario'];
+
+            // Registrar información de depuración
+            file_put_contents(
+                __DIR__ . '/../debug_cart.log',
+                date('Y-m-d H:i:s') . " - isAuthenticated - " .
+                    "Resultado: true (cookie) - " .
+                    "Session ID: " . session_id() .
+                    " - User ID: " . $_SESSION['user_id'] .
+                    "\n",
+                FILE_APPEND
+            );
             return true;
         } else {
             // Cookie inválida, eliminarla
@@ -41,6 +67,16 @@ function isAuthenticated()
         }
     }
 
+    // Registrar información de depuración
+    file_put_contents(
+        __DIR__ . '/../debug_cart.log',
+        date('Y-m-d H:i:s') . " - isAuthenticated - " .
+            "Resultado: false - " .
+            "Session ID: " . session_id() .
+            " - User ID: No autenticado" .
+            "\n",
+        FILE_APPEND
+    );
     return false;
 }
 

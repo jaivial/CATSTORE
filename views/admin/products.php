@@ -60,10 +60,10 @@ $extraCss = [
 
 // Additional JS
 $extraJs = [
-    '/assets/js/admin.js',
-    'https://code.jquery.com/jquery-3.5.1.slim.min.js',
+    'https://code.jquery.com/jquery-3.5.1.min.js',
     'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
-    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'
+    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
+    '/assets/js/admin.js'
 ];
 
 // Include navbar
@@ -1758,7 +1758,8 @@ include_once __DIR__ . '/../../includes/header.php';
             <h5 class="search-title">
                 <i class="fas fa-search"></i> Buscar y Filtrar
             </h5>
-            <button type="button" class="search-options-btn" data-toggle="collapse" data-target="#filterOptions" aria-expanded="true" aria-controls="filterOptions">
+            <button type="button" class="search-options-btn" data-toggle="collapse" data-target="#filterOptions"
+                aria-expanded="true" aria-controls="filterOptions">
                 <i class="fas fa-sliders-h"></i> Opciones
             </button>
         </div>
@@ -1780,7 +1781,9 @@ include_once __DIR__ . '/../../includes/header.php';
                             <div class="search-input-icon">
                                 <i class="fas fa-search"></i>
                             </div>
-                            <input type="text" id="searchInput" name="search" class="search-input" placeholder="Buscar productos..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                            <input type="text" id="searchInput" name="search" class="search-input"
+                                placeholder="Buscar productos..."
+                                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                         </div>
                     </div>
 
@@ -1789,7 +1792,9 @@ include_once __DIR__ . '/../../includes/header.php';
                         <select id="typeFilter" name="filter_type" class="search-select">
                             <option value="">Todos los tipos</option>
                             <?php foreach ($uniqueTypes as $type): ?>
-                                <option value="<?php echo htmlspecialchars($type); ?>" <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == $type) ? 'selected' : ''; ?>><?php echo htmlspecialchars($type); ?></option>
+                                <option value="<?php echo htmlspecialchars($type); ?>"
+                                    <?php echo (isset($_GET['filter_type']) && $_GET['filter_type'] == $type) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($type); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -1798,22 +1803,34 @@ include_once __DIR__ . '/../../includes/header.php';
                         <label class="form-label">Sexo:</label>
                         <div class="gender-filter">
                             <div class="gender-btn-group">
-                                <button type="button" class="gender-btn all <?php echo !isset($_GET['filter_sex']) || $_GET['filter_sex'] === '' ? 'active' : ''; ?>" onclick="document.getElementById('allSex').checked = true;">
+                                <button type="button"
+                                    class="gender-btn all <?php echo !isset($_GET['filter_sex']) || $_GET['filter_sex'] === '' ? 'active' : ''; ?>"
+                                    onclick="document.getElementById('allSex').checked = true;">
                                     <i class="fas fa-venus-mars"></i> Todos
                                 </button>
 
-                                <button type="button" class="gender-btn male <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '1' ? 'active' : ''; ?>" onclick="document.getElementById('male').checked = true;">
+                                <button type="button"
+                                    class="gender-btn male <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '1' ? 'active' : ''; ?>"
+                                    onclick="document.getElementById('male').checked = true;">
                                     <i class="fas fa-mars"></i> Macho
                                 </button>
 
-                                <button type="button" class="gender-btn female <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '0' ? 'active' : ''; ?>" onclick="document.getElementById('female').checked = true;">
+                                <button type="button"
+                                    class="gender-btn female <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '0' ? 'active' : ''; ?>"
+                                    onclick="document.getElementById('female').checked = true;">
                                     <i class="fas fa-venus"></i> Hembra
                                 </button>
                             </div>
 
-                            <input type="radio" name="filter_sex" id="allSex" value="" <?php echo !isset($_GET['filter_sex']) || $_GET['filter_sex'] === '' ? 'checked' : ''; ?> hidden>
-                            <input type="radio" name="filter_sex" id="male" value="1" <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '1' ? 'checked' : ''; ?> hidden>
-                            <input type="radio" name="filter_sex" id="female" value="0" <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '0' ? 'checked' : ''; ?> hidden>
+                            <input type="radio" name="filter_sex" id="allSex" value=""
+                                <?php echo !isset($_GET['filter_sex']) || $_GET['filter_sex'] === '' ? 'checked' : ''; ?>
+                                hidden>
+                            <input type="radio" name="filter_sex" id="male" value="1"
+                                <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '1' ? 'checked' : ''; ?>
+                                hidden>
+                            <input type="radio" name="filter_sex" id="female" value="0"
+                                <?php echo isset($_GET['filter_sex']) && $_GET['filter_sex'] === '0' ? 'checked' : ''; ?>
+                                hidden>
                         </div>
                     </div>
 
@@ -1887,14 +1904,30 @@ include_once __DIR__ . '/../../includes/header.php';
                 <div class="products-sort">
                     <div class="products-sort-select-wrapper">
                         <select class="products-sort-select" id="orderBySelect">
-                            <option value="id-ASC" <?php echo $orderBy === 'id' && $orderDir === 'ASC' ? 'selected' : ''; ?>>ID (ascendente)</option>
-                            <option value="id-DESC" <?php echo $orderBy === 'id' && $orderDir === 'DESC' ? 'selected' : ''; ?>>ID (descendente)</option>
-                            <option value="nombre-ASC" <?php echo $orderBy === 'nombre' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Nombre (A-Z)</option>
-                            <option value="nombre-DESC" <?php echo $orderBy === 'nombre' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Nombre (Z-A)</option>
-                            <option value="precio-ASC" <?php echo $orderBy === 'precio' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Precio (menor a mayor)</option>
-                            <option value="precio-DESC" <?php echo $orderBy === 'precio' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Precio (mayor a menor)</option>
-                            <option value="fecha_anyadido-DESC" <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Fecha (más recientes)</option>
-                            <option value="fecha_anyadido-ASC" <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Fecha (más antiguos)</option>
+                            <option value="id-ASC"
+                                <?php echo $orderBy === 'id' && $orderDir === 'ASC' ? 'selected' : ''; ?>>ID
+                                (ascendente)</option>
+                            <option value="id-DESC"
+                                <?php echo $orderBy === 'id' && $orderDir === 'DESC' ? 'selected' : ''; ?>>ID
+                                (descendente)</option>
+                            <option value="nombre-ASC"
+                                <?php echo $orderBy === 'nombre' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Nombre
+                                (A-Z)</option>
+                            <option value="nombre-DESC"
+                                <?php echo $orderBy === 'nombre' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Nombre
+                                (Z-A)</option>
+                            <option value="precio-ASC"
+                                <?php echo $orderBy === 'precio' && $orderDir === 'ASC' ? 'selected' : ''; ?>>Precio
+                                (menor a mayor)</option>
+                            <option value="precio-DESC"
+                                <?php echo $orderBy === 'precio' && $orderDir === 'DESC' ? 'selected' : ''; ?>>Precio
+                                (mayor a menor)</option>
+                            <option value="fecha_anyadido-DESC"
+                                <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'DESC' ? 'selected' : ''; ?>>
+                                Fecha (más recientes)</option>
+                            <option value="fecha_anyadido-ASC"
+                                <?php echo $orderBy === 'fecha_anyadido' && $orderDir === 'ASC' ? 'selected' : ''; ?>>
+                                Fecha (más antiguos)</option>
                         </select>
                     </div>
                 </div>
@@ -1923,12 +1956,9 @@ include_once __DIR__ . '/../../includes/header.php';
                                 <td>
                                     <?php if (!empty($product['foto'])): ?>
                                         <img src="data:image/jpeg;base64,<?php echo base64_encode($product['foto']); ?>"
-                                            alt="<?php echo htmlspecialchars($product['nombre']); ?>"
-                                            class="product-image">
+                                            alt="<?php echo htmlspecialchars($product['nombre']); ?>" class="product-image">
                                     <?php else: ?>
-                                        <div class="product-image-placeholder">
-                                            <i class="fas fa-cat"></i>
-                                        </div>
+                                        <img src="/assets/img/cat-placeholder.jpg" alt="Sin imagen" class="product-image">
                                     <?php endif; ?>
                                 </td>
                                 <td><span class="product-name"><?php echo htmlspecialchars($product['nombre']); ?></span></td>
@@ -1939,12 +1969,14 @@ include_once __DIR__ . '/../../includes/header.php';
                                 </td>
                                 <td>
                                     <div class="product-color">
-                                        <span class="product-color-dot" style="background-color: <?php echo strtolower($product['color']) == 'blanco' ? '#f8f9fa' : (strtolower($product['color']) == 'negro' ? '#212529' : (strtolower($product['color']) == 'gris' ? '#adb5bd' : (strtolower($product['color']) == 'naranja' ? '#fd7e14' : (strtolower($product['color']) == 'marrón' ? '#6f4e37' : '#6c757d')))); ?>;"></span>
+                                        <span class="product-color-dot"
+                                            style="background-color: <?php echo strtolower($product['color']) == 'blanco' ? '#f8f9fa' : (strtolower($product['color']) == 'negro' ? '#212529' : (strtolower($product['color']) == 'gris' ? '#adb5bd' : (strtolower($product['color']) == 'naranja' ? '#fd7e14' : (strtolower($product['color']) == 'marrón' ? '#6f4e37' : '#6c757d')))); ?>;"></span>
                                         <span><?php echo htmlspecialchars($product['color']); ?></span>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="product-tag <?php echo $product['sexo'] ? 'product-tag-primary' : 'product-tag-danger'; ?>">
+                                    <span
+                                        class="product-tag <?php echo $product['sexo'] ? 'product-tag-primary' : 'product-tag-danger'; ?>">
                                         <i class="fas fa-<?php echo $product['sexo'] ? 'mars' : 'venus'; ?>"></i>
                                         <?php echo $product['sexo'] ? 'Macho' : 'Hembra'; ?>
                                     </span>
@@ -1960,7 +1992,8 @@ include_once __DIR__ . '/../../includes/header.php';
                                 <td>
                                     <div class="product-date">
                                         <i class="far fa-calendar-alt"></i>
-                                        <span data-toggle="tooltip" title="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>">
+                                        <span data-toggle="tooltip"
+                                            title="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>">
                                             <?php
                                             $date = new DateTime($product['fecha_anyadido']);
                                             $now = new DateTime();
@@ -1981,18 +2014,21 @@ include_once __DIR__ . '/../../includes/header.php';
                                 </td>
                                 <td>
                                     <div class="product-actions">
-                                        <a href="/views/admin/product_form.php?id=<?php echo $product['id']; ?>" class="product-action-btn product-action-btn-primary" data-toggle="tooltip" title="Editar">
+                                        <a href="/views/admin/product_form.php?id=<?php echo $product['id']; ?>"
+                                            class="product-action-btn product-action-btn-primary" data-toggle="tooltip"
+                                            title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="/views/admin/product_view.php?id=<?php echo $product['id']; ?>" class="product-action-btn product-action-btn-info" data-toggle="tooltip" title="Ver detalles">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <button class="product-action-btn product-action-btn-danger delete-product"
-                                            data-id="<?php echo $product['id']; ?>"
-                                            data-name="<?php echo htmlspecialchars($product['nombre']); ?>"
-                                            data-toggle="tooltip" title="Eliminar">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <!-- Formulario de eliminación con confirmación nativa -->
+                                        <form action="/controllers/product_delete.php" method="GET" style="display:inline;"
+                                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar el producto: <?php echo htmlspecialchars(addslashes($product['nombre'])); ?>?');">
+                                            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                                            <button type="submit" class="product-action-btn product-action-btn-danger"
+                                                data-toggle="tooltip" title="Eliminar"
+                                                style="border:none; background:none; cursor:pointer; padding:0;">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -2005,7 +2041,8 @@ include_once __DIR__ . '/../../includes/header.php';
                                         <i class="fas fa-box-open"></i>
                                     </div>
                                     <h4 class="products-empty-title">No hay productos disponibles</h4>
-                                    <p class="products-empty-message">No se encontraron productos que coincidan con los criterios de búsqueda</p>
+                                    <p class="products-empty-message">No se encontraron productos que coincidan con los
+                                        criterios de búsqueda</p>
                                     <div class="products-empty-actions">
                                         <a href="/views/admin/products.php" class="btn btn-outline-secondary">
                                             <i class="fas fa-sync"></i> Reiniciar filtros
@@ -2027,7 +2064,8 @@ include_once __DIR__ . '/../../includes/header.php';
                     <i class="fas fa-list"></i>
                 </div>
                 <div>
-                    Mostrando <span class="products-count-number"><?php echo count($result['data']); ?></span> de <span class="products-count-number"><?php echo $result['count']; ?></span> productos
+                    Mostrando <span class="products-count-number"><?php echo count($result['data']); ?></span> de <span
+                        class="products-count-number"><?php echo $result['count']; ?></span> productos
                     <?php if (isset($_GET['search']) || isset($_GET['filter_type']) || isset($_GET['filter_sex'])): ?>
                         <span class="filter-badge" style="margin-left: 0.5rem;">Filtrados</span>
                     <?php endif; ?>
@@ -2070,53 +2108,32 @@ include_once __DIR__ . '/../../includes/header.php';
     </div>
 </div>
 
-<!-- Modal de confirmación de eliminación -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: var(--border-radius-lg);">
-            <div class="modal-header bg-danger text-white border-0">
-                <h5 class="modal-title font-weight-bold" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle mr-2"></i> Confirmar Eliminación
-                </h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="text-center mb-4">
-                    <div class="mx-auto mb-4 animate-fade-up" style="animation-delay: 0.1s;">
-                        <div class="admin-icon-rounded admin-icon-bg-danger" style="width: 90px; height: 90px; margin: 0 auto;">
-                            <i class="fas fa-trash-alt text-danger" style="font-size: var(--font-size-xl);"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-weight-bold mb-3 animate-fade-up" style="animation-delay: 0.2s;">¿Eliminar este producto?</h4>
-                    <p class="text-muted mb-1 animate-fade-up" style="animation-delay: 0.3s;">¿Estás seguro de que deseas eliminar el producto:</p>
-                    <p class="font-weight-bold text-dark mb-4 animate-fade-up" style="animation-delay: 0.4s; font-size: var(--font-size-lg);">
-                        <span id="product-name" class="text-primary"></span>
-                    </p>
-                    <div class="alert alert-warning d-flex align-items-center animate-fade-up" style="animation-delay: 0.5s; border-radius: var(--border-radius-md);">
-                        <i class="fas fa-info-circle text-warning mr-3" style="font-size: var(--font-size-lg);"></i>
-                        <p class="mb-0 text-left">Esta acción no se puede deshacer. El producto será eliminado permanentemente de la base de datos.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer bg-light border-0" style="border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                    <i class="fas fa-times mr-2"></i> Cancelar
-                </button>
-                <button type="button" class="btn btn-danger admin-btn-circle shadow-sm" id="confirm-delete">
-                    <i class="fas fa-trash-alt mr-2"></i> Eliminar Producto
-                </button>
-            </div>
-        </div>
+<!-- Cart Drawer -->
+<div id="cart-drawer" class="cart-drawer">
+    <div class="cart-drawer-header">
+        <h3>Tu Carrito</h3>
+        <button id="cart-close" class="cart-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div id="cart-drawer-content" class="cart-drawer-content">
+        <!-- Contenido del carrito se cargará dinámicamente -->
     </div>
 </div>
 
+<!-- Cart Overlay -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+<?php include_once __DIR__ . '/../../includes/footer.php'; ?>
+
+<!-- Incluir fixed_drawer.js -->
+<script src="/fixed_drawer.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Inicializar tooltips
-        if (typeof $ !== 'undefined') {
-            $('[data-toggle="tooltip"]').tooltip();
+        // Inicializar tooltips si Bootstrap está disponible
+        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.tooltip !== 'undefined') {
+            jQuery('[data-toggle="tooltip"]').tooltip();
         }
 
         // Gender filter buttons functionality
@@ -2133,36 +2150,6 @@ include_once __DIR__ . '/../../includes/header.php';
                 // This will trigger the radio button change
                 // The actual form submission happens with the "Aplicar" button
             });
-        });
-
-        // Delete product functionality
-        const deleteButtons = document.querySelectorAll('.delete-product');
-        const productNameSpan = document.getElementById('product-name');
-        const confirmDeleteBtn = document.getElementById('confirm-delete');
-        let productId = null;
-
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                productId = this.getAttribute('data-id');
-                const productName = this.getAttribute('data-name');
-                productNameSpan.textContent = productName;
-
-                // Show modal using jQuery
-                $('#deleteModal').modal('show');
-            });
-        });
-
-        confirmDeleteBtn.addEventListener('click', function() {
-            if (productId) {
-                // Mostrar indicador de carga en el botón
-                this.innerHTML = '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> Eliminando...';
-                this.disabled = true;
-
-                // Redirigir después de un breve retraso para mostrar el efecto
-                setTimeout(() => {
-                    window.location.href = `/controllers/product_delete.php?id=${productId}`;
-                }, 800);
-            }
         });
 
         // Cambiar estilo de columnas ordenadas
@@ -2225,5 +2212,3 @@ include_once __DIR__ . '/../../includes/header.php';
         }
     });
 </script>
-
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

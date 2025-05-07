@@ -58,7 +58,7 @@ include_once __DIR__ . '/../../includes/header.php';
                                     <tr>
                                         <td class="cart-item-image">
                                             <?php if (!empty($item['foto'])): ?>
-                                                <img src="data:image/jpeg;base64,<?php echo base64_encode($item['foto']); ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
+                                                <img src="data:image/jpeg;base64,<?php echo $item['foto']; ?>" alt="<?php echo htmlspecialchars($item['nombre']); ?>">
                                             <?php else: ?>
                                                 <img src="/assets/img/cat-placeholder.jpg" alt="Imagen no disponible">
                                             <?php endif; ?>
@@ -69,7 +69,7 @@ include_once __DIR__ . '/../../includes/header.php';
                                         <td><?php echo $item['repetitions']; ?></td>
                                         <td><?php echo number_format($item['precio'] * $item['repetitions'], 2, ',', '.'); ?> €</td>
                                         <td>
-                                            <button class="btn btn-sm remove-from-cart" data-id="<?php echo $item['id']; ?>">
+                                            <button class="btn btn-sm remove-from-cart" data-id="<?php echo $item['id']; ?>" data-username="<?php echo $item['username_usuario']; ?>">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -139,9 +139,28 @@ include_once __DIR__ . '/../../includes/header.php';
     </div>
 
     <div class="modal-overlay" id="modal-overlay"></div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>Tu Carrito</h3>
+            <button id="cart-close" class="cart-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cart-drawer-content" class="cart-drawer-content">
+            <!-- Contenido del carrito se cargará dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="cart-overlay"></div>
 </main>
 
 <?php
 // Incluir pie de página
 include_once __DIR__ . '/../../includes/footer.php';
 ?>
+
+<!-- Incluir fixed_drawer.js -->
+<script src="/fixed_drawer.js"></script>

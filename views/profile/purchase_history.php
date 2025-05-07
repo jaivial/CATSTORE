@@ -99,3 +99,22 @@ include_once __DIR__ . '/../../includes/header.php';
 </div>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer" class="cart-drawer">
+    <div class="cart-drawer-header">
+        <h3>Tu Carrito</h3>
+        <button id="cart-close" class="cart-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div id="cart-drawer-content" class="cart-drawer-content">
+        <!-- Contenido del carrito se cargará dinámicamente -->
+    </div>
+</div>
+
+<!-- Cart Overlay -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+<!-- Incluir fixed_drawer.js -->
+<script src="/fixed_drawer.js"></script>

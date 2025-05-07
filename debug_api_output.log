@@ -1,0 +1,236 @@
+
+
+========== NUEVA SOLICITUD DE DEPURACIÓN ==========
+Fecha y hora: 2025-05-07 21:46:58
+IP Solicitante: 127.0.0.1
+User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+
+ID de sesión: 2dc6gnjj3gt733hq72dutv6cb2
+Usuario en sesión: javial
+
+
+----- Probando cart_api_local -----
+Probando URL: http://localhost:8081/api/cart_api.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:47:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 
+
+----- Probando cart_api_relative -----
+Probando URL: http://localhost:8081/api/cart_api.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:48:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 
+
+----- Probando cart_php_direct -----
+Probando URL: http://localhost:8081/api/cart.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:49:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 
+
+
+========== NUEVA SOLICITUD DE DEPURACIÓN ==========
+Fecha y hora: 2025-05-07 21:49:58
+IP Solicitante: 127.0.0.1
+User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+
+ID de sesión: 2dc6gnjj3gt733hq72dutv6cb2
+Usuario en sesión: javial
+
+
+----- Probando cart_api_local -----
+Probando URL: http://localhost:8081/api/cart_api.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:50:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 
+
+----- Probando cart_api_relative -----
+Probando URL: http://localhost:8081/api/cart_api.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:51:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 
+
+----- Probando cart_php_direct -----
+Probando URL: http://localhost:8081/api/cart.php?action=get
+Método: GET
+Código de respuesta HTTP: 504
+Encabezados de respuesta:
+HTTP/1.1 504 Gateway Time-out
+Server: nginx/1.27.5
+Date: Wed, 07 May 2025 21:52:58 GMT
+Content-Type: text/html
+Content-Length: 167
+Connection: keep-alive
+
+
+Cuerpo de la respuesta (tamaño: 167 bytes):
+<html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+
+Error al decodificar JSON: Syntax error
+Cuerpo en hex:
+3C 68 74 6D 6C 3E 0D 0A 3C 68 65 61 64 3E 3C 74 
+69 74 6C 65 3E 35 30 34 20 47 61 74 65 77 61 79 
+20 54 69 6D 65 2D 6F 75 74 3C 2F 74 69 74 6C 65 
+3E 3C 2F 68 65 61 64 3E 0D 0A 3C 62 6F 64 79 3E 
+0D 0A 3C 63 65 6E 74 65 72 3E 3C 68 31 3E 35 30 
+34 20 47 61 74 65 77 61 79 20 54 69 6D 65 2D 6F 
+75 74 3C 2F 68 31 3E 3C 2F 63 65 6E 74 65 72 3E 
+0D 0A 3C 68 72 3E 3C 63 65 6E 74 65 72 3E 6E 67 
+69 6E 78 2F 31 2E 32 37 2E 35 3C 2F 63 65 6E 74 
+65 72 3E 0D 0A 3C 2F 62 6F 64 79 3E 0D 0A 3C 2F 
+68 74 6D 6C 3E 0D 0A 

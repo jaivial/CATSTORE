@@ -8,7 +8,7 @@
 // Configuración de la base de datos
 define('DB_HOST', '127.0.0.1'); // Usar IP en lugar de localhost
 define('DB_USER', 'root'); // Cambiar por el usuario de la base de datos
-define('DB_PASS', '');     // Cambiar por la contraseña de la base de datos
+define('DB_PASS', 'Jva-Mvc-5171');     // Cambiar por la contraseña de la base de datos
 define('DB_NAME', 'gatos');
 define('DB_CHARSET', 'utf8mb4');
 define('DB_PORT', '3306'); // Puerto de MySQL

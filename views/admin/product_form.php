@@ -58,7 +58,7 @@ include_once __DIR__ . '/../../includes/header.php';
                 action="/api/admin.php?action=<?php echo $isEditing ? 'update_product' : 'create_product'; ?>"
                 enctype="multipart/form-data">
                 <?php if ($isEditing): ?>
-                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                    <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                 <?php endif; ?>
 
                 <div class="product-form-grid">
@@ -127,17 +127,17 @@ include_once __DIR__ . '/../../includes/header.php';
                             <div class="product-form-image-preview">
                                 <div class="product-form-image-container">
                                     <?php if ($isEditing && !empty($product['foto'])): ?>
-                                    <img id="image-preview"
-                                        src="<?php echo 'data:image/jpeg;base64,' . base64_encode($product['foto']); ?>"
-                                        alt="Vista previa" class="product-form-image">
+                                        <img id="image-preview"
+                                            src="<?php echo 'data:image/jpeg;base64,' . base64_encode($product['foto']); ?>"
+                                            alt="Vista previa" class="product-form-image">
                                     <?php else: ?>
-                                    <div class="product-form-image-placeholder">
-                                        <i class="fas fa-cat"></i>
-                                        <span class="product-form-image-placeholder-text">No hay imagen
-                                            seleccionada</span>
-                                    </div>
-                                    <img id="image-preview" src="/assets/img/cat-placeholder.png" alt="Vista previa"
-                                        class="product-form-image">
+                                        <div class="product-form-image-placeholder">
+                                            <i class="fas fa-cat"></i>
+                                            <span class="product-form-image-placeholder-text">No hay imagen
+                                                seleccionada</span>
+                                        </div>
+                                        <img id="image-preview" src="/assets/img/cat-placeholder.png" alt="Vista previa"
+                                            class="product-form-image">
                                     <?php endif; ?>
                                     <div class="product-form-image-overlay">
                                         <button type="button" class="product-form-image-action" id="change-image">
@@ -149,12 +149,12 @@ include_once __DIR__ . '/../../includes/header.php';
                         </div>
 
                         <?php if ($isEditing): ?>
-                        <div class="product-form-group">
-                            <label class="product-form-label">Fecha de creación</label>
-                            <input type="text" class="product-form-input"
-                                value="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>"
-                                readonly>
-                        </div>
+                            <div class="product-form-group">
+                                <label class="product-form-label">Fecha de creación</label>
+                                <input type="text" class="product-form-input"
+                                    value="<?php echo date('d/m/Y H:i', strtotime($product['fecha_anyadido'])); ?>"
+                                    readonly>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -170,70 +170,301 @@ include_once __DIR__ . '/../../includes/header.php';
     </div>
 </div>
 
+<!-- Notification toast -->
+<div id="notification-toast" class="notification-toast">
+    <div class="notification-toast-content">
+        <div class="notification-toast-icon">
+            <i class="fas fa-check-circle notification-toast-success-icon"></i>
+            <i class="fas fa-exclamation-circle notification-toast-error-icon"></i>
+        </div>
+        <div class="notification-toast-message"></div>
+    </div>
+    <div class="notification-toast-progress"></div>
+</div>
+
 <style>
-/* Estilos adicionales en línea */
-#change-image {
-    background-color: var(--form-primary);
-    color: var(--form-white);
-}
+    /* Estilos adicionales en línea */
+    #change-image {
+        background-color: var(--form-primary);
+        color: var(--form-white);
+    }
 
-#change-image:hover {
-    background-color: var(--form-primary-hover);
-}
+    #change-image:hover {
+        background-color: var(--form-primary-hover);
+    }
 
-.product-form-file-input:focus~.product-form-file-label {
-    border-color: var(--form-primary);
-    box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
-}
+    .product-form-file-input:focus~.product-form-file-label {
+        border-color: var(--form-primary);
+        box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
+    }
 
-/* Animación para el botón de guardar */
-.product-form-btn-primary:active {
-    transform: scale(0.98);
-}
+    /* Animación para el botón de guardar */
+    .product-form-btn-primary:active {
+        transform: scale(0.98);
+    }
+
+    /* Notification Toast */
+    .notification-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 350px;
+        background-color: white;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 15px 20px;
+        z-index: 9999;
+        overflow: hidden;
+        transform: translateX(400px);
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .notification-toast.active {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .notification-toast-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .notification-toast-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .notification-toast-success .notification-toast-icon {
+        background-color: #4caf50;
+    }
+
+    .notification-toast-error .notification-toast-icon {
+        background-color: #f44336;
+    }
+
+    .notification-toast-icon i {
+        font-size: 20px;
+        color: white;
+    }
+
+    .notification-toast-success-icon {
+        display: none;
+    }
+
+    .notification-toast-error-icon {
+        display: none;
+    }
+
+    .notification-toast-success .notification-toast-success-icon {
+        display: block;
+    }
+
+    .notification-toast-error .notification-toast-error-icon {
+        display: block;
+    }
+
+    .notification-toast-message {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .notification-toast-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+        background: #ddd;
+    }
+
+    .notification-toast-progress:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #4a6cf7;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s linear;
+    }
+
+    .notification-toast.active .notification-toast-progress:before {
+        transform: scaleX(1);
+        transition: transform 5s linear;
+    }
+
+    .notification-toast-success .notification-toast-progress:before {
+        background-color: #4caf50;
+    }
+
+    .notification-toast-error .notification-toast-progress:before {
+        background-color: #f44336;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .loading-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid var(--form-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
 <script>
-// Script para manejar la vista previa de la imagen
-document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('foto');
-    const imagePreview = document.getElementById('image-preview');
-    const changeImageBtn = document.getElementById('change-image');
-    const placeholder = document.querySelector('.product-form-image-placeholder');
+    // Script para manejar la vista previa de la imagen
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('foto');
+        const imagePreview = document.getElementById('image-preview');
+        const changeImageBtn = document.getElementById('change-image');
+        const placeholder = document.querySelector('.product-form-image-placeholder');
+        const form = document.getElementById('product-form');
+        const notificationToast = document.getElementById('notification-toast');
+        const notificationMessage = document.querySelector('.notification-toast-message');
 
-    // Actualizar la vista previa cuando se selecciona un archivo
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files[0]) {
-            const reader = new FileReader();
+        // Crear el overlay de carga
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+        document.body.appendChild(loadingOverlay);
 
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                if (placeholder) {
-                    placeholder.style.display = 'none';
-                }
-                imagePreview.style.display = 'block';
-            };
+        // Función para mostrar notificación
+        function showNotification(message, type) {
+            notificationMessage.textContent = message;
+            notificationToast.className = 'notification-toast active notification-toast-' + type;
 
-            reader.readAsDataURL(this.files[0]);
+            // Ocultar notificación después de 5 segundos
+            setTimeout(() => {
+                notificationToast.classList.remove('active');
+            }, 5000);
         }
-    });
 
-    // Botón para cambiar la imagen
-    if (changeImageBtn) {
-        changeImageBtn.addEventListener('click', function() {
-            fileInput.click();
+        // Función para mostrar/ocultar overlay de carga
+        function toggleLoading(show) {
+            if (show) {
+                loadingOverlay.classList.add('active');
+            } else {
+                loadingOverlay.classList.remove('active');
+            }
+        }
+
+        // Manejar envío del formulario
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Mostrar overlay de carga
+                toggleLoading(true);
+
+                // Crear FormData para enviar los datos del formulario
+                const formData = new FormData(this);
+
+                // Enviar solicitud AJAX
+                fetch(this.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        toggleLoading(false);
+
+                        if (data.success) {
+                            // Mostrar notificación de éxito
+                            showNotification(data.message || 'Producto guardado correctamente', 'success');
+
+                            // Redireccionar después de 1 segundo
+                            setTimeout(() => {
+                                window.location.href = '/views/admin/products.php';
+                            }, 1000);
+                        } else {
+                            // Mostrar notificación de error
+                            showNotification(data.message || 'Error al guardar el producto', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        toggleLoading(false);
+                        showNotification('Error de conexión', 'error');
+                        console.error('Error:', error);
+                    });
+            });
+        }
+
+        // Actualizar la vista previa cuando se selecciona un archivo
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(this.files[0]);
+            }
         });
-    }
 
-    // Actualizar el texto del input file cuando se selecciona un archivo
-    fileInput.addEventListener('change', function() {
-        const fileText = document.querySelector('.product-form-file-text');
-        if (fileText) {
-            fileText.textContent = this.files.length > 0 ?
-                this.files[0].name :
-                'Seleccionar archivo...';
+        // Botón para cambiar la imagen
+        if (changeImageBtn) {
+            changeImageBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
         }
+
+        // Actualizar el texto del input file cuando se selecciona un archivo
+        fileInput.addEventListener('change', function() {
+            const fileText = document.querySelector('.product-form-file-text');
+            if (fileText) {
+                fileText.textContent = this.files.length > 0 ?
+                    this.files[0].name :
+                    'Seleccionar archivo...';
+            }
+        });
     });
-});
 </script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

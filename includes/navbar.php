@@ -59,8 +59,7 @@ if ($isAuthenticated) {
 
                         <!-- Icono de cerrar sesión -->
                         <div class="navbar-action">
-                            <a href="/controllers/AuthController.php?action=logout" class="navbar-icon"
-                                title="Cerrar Sesión">
+                            <a href="#" class="navbar-icon logout-link" title="Cerrar Sesión">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span class="navbar-icon-text">Cerrar Sesión</span>
                             </a>
@@ -104,6 +103,33 @@ if ($isAuthenticated) {
 
 <!-- Overlay para menú móvil -->
 <div class="navbar-overlay" id="navbar-overlay"></div>
+
+<!-- Estilos para navbar fijo -->
+<style>
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: #fff;
+        /* Asegura que el fondo sea visible */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* Sombra sutil para separar del contenido */
+    }
+
+    body {
+        padding-top: 60px;
+        /* Ajustar según la altura de tu navbar */
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding-top: 50px;
+            /* Ajuste para móviles si el navbar es más pequeño */
+        }
+    }
+</style>
 
 <?php if ($isAuthenticated): ?>
     <!-- Drawer del carrito -->
@@ -389,3 +415,6 @@ if ($isAuthenticated) {
         }
     });
 </script>
+
+<!-- Script para gestión del cierre de sesión -->
+<script src="/assets/js/logout.js"></script>
